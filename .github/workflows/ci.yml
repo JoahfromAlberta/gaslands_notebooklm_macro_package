@@ -1,0 +1,58 @@
+name: CI (minimal test)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Optional: Python is only needed if ingest_run.py uses it; keep it minimal but safe.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps (if any)
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          if (Test-Path "requirements.txt") { pip install -r requirements.txt }
+
+      - name: Mock inputs (no clipboard required)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force uivision_macro | Out-Null
+          Set-Content -Encoding UTF8 uivision_macro\retrieved_context.txt "CI: retrieved context"
+          Set-Content -Encoding UTF8 uivision_macro\comment.txt "CI: user turn summary"
+
+      - name: Build prompt.txt (clipboard best-effort, file guaranteed)
+        shell: pwsh
+        run: pwsh -ExecutionPolicy Bypass -File uivision_macro\scripts\build_prompt.ps1
+
+      - name: Create last_reply.txt directly (avoid clipboard in CI)
+        shell: pwsh
+        run: |
+          Set-Content -Encoding UTF8 uivision_macro\last_reply.txt "CI: reply"
+          Get-Content -Raw uivision_macro\last_reply.txt
+
+      - name: Ingest prompt + reply
+        shell: cmd
+        run: uivision_macro\scripts\run_from_root.bat ingest
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-minimal-outputs
+          path: |
+            uivision_macro\prompt.txt
+            uivision_macro\last_reply.txt
+            uivision_macro\retrieved_context.txt
+            uivision_macro\comment.txt
+            rag\db\**
