@@ -1,0 +1,16 @@
+# Base
+numpy
+pandas
+tqdm
+
+# RAG/vector
+chromadb
+faiss-cpu
+
+# Models
+transformers
+sentence-transformers
+
+# Torch CPU for Windows is special; install via index URL:
+# pip install --index-url https://download.pytorch.org/whl/cpu torch
+

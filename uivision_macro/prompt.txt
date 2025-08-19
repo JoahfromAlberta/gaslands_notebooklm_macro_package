@@ -1,0 +1,10 @@
+﻿# NotebookLM Loop Prompt
+
+[timestamp] 2025-08-19 12:43:25 -06:00
+
+## Context (top-k retrieval)
+
+
+
+## Task / User Turn Summary
+In one sentence, summarize the Gaslands concept and list its core mechanics.

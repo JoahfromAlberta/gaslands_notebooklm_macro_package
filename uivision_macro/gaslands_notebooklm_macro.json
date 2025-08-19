@@ -1,0 +1,60 @@
+{
+  "Name": "gaslands_notebooklm_macro.json",
+  "CreationDate": "2025-08-14",
+  "Commands": [
+    { "Command": "store", "Target": "240", "Value": "!timeout_macro" },
+    { "Command": "store", "Target": "true", "Value": "!errorignore" },
+
+    { "Command": "open", "Target": "https://notebooklm.google.com/notebook/d215e0a5-cc84-4fc1-bd0a-9e0bb7c0d3ad", "Value": "" },
+    { "Command": "pause", "Target": "1500", "Value": "" },
+    { "Command": "click", "Target": "css=body", "Value": "" },
+
+    { "Command": "verifyElementPresent", "Target": "css=button[aria-label='Close']", "Value": "" },
+    { "Command": "if_v2", "Target": "${!LastCommandOK} == true", "Value": "" },
+    { "Command": "click", "Target": "css=button[aria-label='Close']", "Value": "" },
+    { "Command": "pause", "Target": "300", "Value": "" },
+    { "Command": "end", "Target": "", "Value": "" },
+
+    { "Command": "store", "Target": "false", "Value": "foundInput" },
+    { "Command": "times", "Target": "24", "Value": "" },
+    { "Command": "verifyElementPresent", "Target": "xpath=(//div[contains(@class,'query-box-container')]//*[self::textarea or @role='textbox'])[last()] | //textarea[@aria-label='query box' and not(@disabled)] | //textarea[contains(@class,'query-box-input') and not(@disabled)] | //div[@role='textbox' and @contenteditable='true' and not(@aria-disabled='true')]", "Value": "" },
+    { "Command": "if_v2", "Target": "${!LastCommandOK} == true", "Value": "" },
+    { "Command": "click", "Target": "xpath=(//div[contains(@class,'query-box-container')]//*[self::textarea or @role='textbox'])[last()] | //textarea[@aria-label='query box' and not(@disabled)] | //textarea[contains(@class,'query-box-input') and not(@disabled)] | //div[@role='textbox' and @contenteditable='true' and not(@aria-disabled='true')]", "Value": "" },
+    { "Command": "store", "Target": "true", "Value": "foundInput" },
+    { "Command": "gotoLabel", "Target": "inputReady", "Value": "" },
+    { "Command": "end", "Target": "", "Value": "" },
+    { "Command": "pause", "Target": "400", "Value": "" },
+    { "Command": "end", "Target": "", "Value": "" },
+
+    { "Command": "if_v2", "Target": "${foundInput} == false", "Value": "" },
+    { "Command": "throwError", "Target": "Chat input not found", "Value": "" },
+    { "Command": "end", "Target": "", "Value": "" },
+
+    { "Command": "label", "Target": "inputReady", "Value": "" },
+
+    { "Command": "XRun", "Target": "C:\\projects\\gaslands_notebooklm_macro_package\\uivision_macro\\scripts\\retrieve.bat", "Value": "" },
+    { "Command": "XRun", "Target": "C:\\projects\\gaslands_notebooklm_macro_package\\uivision_macro\\scripts\\build_prompt.bat", "Value": "" },
+
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_V}", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_ENTER}", "Value": "" },
+
+    { "Command": "pause", "Target": "12000", "Value": "" },
+
+    { "Command": "verifyElementPresent", "Target": "xpath=(//div[@role='article'] | //div[contains(@class,'message')])[last()]", "Value": "" },
+    { "Command": "click", "Target": "xpath=(//div[@role='article'] | //div[contains(@class,'message')])[last()]", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_A}", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_C}", "Value": "" },
+
+    { "Command": "store", "Target": "${!clipboard}", "Value": "lastReply" },
+    { "Command": "XRun", "Target": "C:\\projects\\gaslands_notebooklm_macro_package\\uivision_macro\\scripts\\write_last_reply.bat", "Value": "" },
+
+    { "Command": "XRun", "Target": "C:\\projects\\gaslands_notebooklm_macro_package\\uivision_macro\\scripts\\ingest.bat", "Value": "" },
+    { "Command": "pause", "Target": "500", "Value": "" }
+  ]
+}
+
+
+
+
+
+

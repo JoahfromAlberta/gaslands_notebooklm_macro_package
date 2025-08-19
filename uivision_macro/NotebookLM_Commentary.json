@@ -1,0 +1,50 @@
+{
+  "Name": "NotebookLM_Commentary",
+  "CreationDate": "2025-08-12",
+  "Commands": [
+    { "Command": "store", "Target": "120", "Value": "!timeout_macro" },
+    { "Command": "store", "Target": "true", "Value": "!errorignore" },
+
+    { "Command": "open", "Target": "https://notebooklm.google.com/notebook/d215e0a5-cc84-4fc1-bd0a-9e0bb7c0d3ad", "Value": "" },
+    { "Command": "pause", "Target": "1500", "Value": "" },
+    { "Command": "click", "Target": "css=body", "Value": "" },
+
+    { "Command": "store", "Target": "false", "Value": "foundInput" },
+    { "Command": "times", "Target": "24", "Value": "" },
+      { "Command": "verifyElementPresent", "Target": "xpath=(//div[contains(@class,'query-box-container')]//*[self::textarea or @role='textbox'])[last()] | //textarea[@aria-label='query box' and not(@disabled)] | //textarea[contains(@class,'query-box-input') and not(@disabled)] | //div[@role='textbox' and @contenteditable='true' and not(@aria-disabled='true')]", "Value": "" },
+      { "Command": "if_v2", "Target": "${!LastCommandOK} == true", "Value": "" },
+        { "Command": "click", "Target": "xpath=(//div[contains(@class,'query-box-container')]//*[self::textarea or @role='textbox'])[last()] | //textarea[@aria-label='query box' and not(@disabled)] | //textarea[contains(@class,'query-box-input') and not(@disabled)] | //div[@role='textbox' and @contenteditable='true' and not(@aria-disabled='true')]", "Value": "" },
+        { "Command": "store", "Target": "true", "Value": "foundInput" },
+        { "Command": "gotoLabel", "Target": "inputReady", "Value": "" },
+      { "Command": "end", "Target": "", "Value": "" },
+      { "Command": "pause", "Target": "400", "Value": "" },
+    { "Command": "end", "Target": "", "Value": "" },
+
+    { "Command": "label", "Target": "inputReady", "Value": "" },
+
+    { "Command": "XRun",  "Target": "C:\\\\projects\\\\gaslands_notebooklm_macro_package\\\\uivision_macro\\\\read_comment_txt.vbs", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_V}", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_ENTER}", "Value": "" },
+
+    { "Command": "pause", "Target": "9000", "Value": "" },
+
+    { "Command": "click", "Target": "xpath=(//div[@role='article'] | //div[contains(@class,'message')])[last()]", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_A}", "Value": "" },
+    { "Command": "XType", "Target": "${KEY_CTRL+KEY_C}", "Value": "" },
+
+    { "Command": "XRun",  "Target": "C:\\\\projects\\\\gaslands_notebooklm_macro_package\\\\uivision_macro\\\\write_comment_txt.vbs", "Value": "" },
+    { "Command": "pause", "Target": "500", "Value": "" }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
